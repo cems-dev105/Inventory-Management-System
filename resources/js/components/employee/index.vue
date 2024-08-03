@@ -13,6 +13,9 @@
                                     <i class="fas fa-search"></i>
                                 </button>
                             </div> -->
+                        </div><br>
+                        <div>
+                            <router-link to="/employee-create"><button class="btn btn-success ">Add New</button></router-link>
                         </div>
                     </div>
                     <div class="card-body">
@@ -161,5 +164,4 @@ export default {
 .input-group-append .btn {
     margin-left: 5px; /* Adjust the space between the input and the button */
 }
-
 </style>

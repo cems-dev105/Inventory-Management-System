@@ -33,7 +33,7 @@ class EmployeeController extends Controller
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
             'address' => 'required|string|max:255',
-            'salary' => 'required|numeric',
+            'salary' => 'required',
             'nid' => 'required|string|max:20',
             'joining_date' => 'required|date',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
