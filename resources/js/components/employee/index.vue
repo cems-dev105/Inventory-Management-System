@@ -7,12 +7,12 @@
                     <div class="form-outline small-search-box" data-mdb-input-init>
                         <label class="form-label" for="form1">Search</label>
                         <div class="input-group">
-                            <input type="search" id="form1" class="form-control small-input" />
-                            <div class="input-group-append">
+                            <input type="search" id="form1" class="form-control small-input" v-model="searchTerm" placeholder="search phone or email"/>
+                            <!-- <div class="input-group-append">
                                 <button type="button" class="btn btn-success" data-mdb-ripple-init>
                                     <i class="fas fa-search"></i>
                                 </button>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="card-body">
@@ -20,8 +20,8 @@
                             <table class="table table-hover table-bordered">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th>Photo</th>
                                         <th>Name</th>
+                                        <th>Photo</th>
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Address</th>
@@ -32,7 +32,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="employee in employees" :key="employee.id">
+                                    <tr v-for="employee in searchEmployee" :key="employee.id">
+                                        <td>{{ employee.name }}</td>
                                         <td>
                                             <div v-if="employee.photo">
                                                 <img :src="employee.photo" alt="Photo" class="img-thumbnail" style=" width: 100px; height: 100px;"/>
@@ -41,7 +42,6 @@
                                                 <i class="fas fa-user-circle" style=" font-size: 100px; color: #ccc;"></i>
                                             </div>
                                         </td>
-                                        <td>{{ employee.name }}</td>
                                         <td>{{ employee.email }}</td>
                                         <td>{{ employee.phone }}</td>
                                         <td>{{ employee.address }}</td>
@@ -73,7 +73,18 @@ export default {
     data() {
         return {
             employees: [],
+            searchTerm: ''
         };
+    },
+
+    computed: {
+
+        searchEmployee()
+        {
+            return this.employees.filter(employee => {
+                return employee.phone.match(this.searchTerm) || employee.email.match(this.searchTerm);
+            });
+        }
     },
 
     methods: {
