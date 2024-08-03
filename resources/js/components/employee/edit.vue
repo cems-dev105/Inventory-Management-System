@@ -36,8 +36,9 @@
                                                 <label for="inputJoiningDate">Joining Date</label>
                                             </div>
                                             <div class="mt-4 mb-0">
-                                                <div class="d-grid">
-                                                    <button class="btn btn-primary btn-block" type="submit">Update Employee</button>
+                                                <div class="d-flex">
+                                                    <button class="btn btn-success btn-block btn-space" type="submit">Update</button>
+                                                    <button class="btn btn-primary btn-block" type="button" v-on:click="cancelEdit">Cancel</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -108,6 +109,11 @@ import { useToast } from 'vue-toastification';
                         console.error(error);
                     }
                 });
+            },
+
+            cancelEdit()
+            {
+                this.$router.push('/employee-list');
             }
         },
 
@@ -120,5 +126,9 @@ import { useToast } from 'vue-toastification';
 
 
 <style scoped>
+
+.btn-space{
+    margin-right: 5px;
+}
 
 </style>

@@ -7,6 +7,8 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/styles.css') }}">
   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
   <link href="{{ asset('backend/css/styles.css') }}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
   <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
   @vite('resources/css/app.css')
   @vite('resources/js/app.js')
@@ -22,6 +24,6 @@
   <script src="{{ asset('backend/assets/demo/chart-bar-demo.js') }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
   <script src="{{ asset('backend/js/datatables-simple-demo.js') }}"></script>
-  
+
 </body>
 </html>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
@@ -27,31 +28,47 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $validateData = $request->validate([
-
-            'name' => 'required|max:50',
-            'email' => 'required',
-            'phone' => 'required|min:11',
-            'address' => 'required',
-            'salary' => 'required'
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
+            'address' => 'required|string|max:255',
+            'salary' => 'required|numeric',
+            'nid' => 'required|string|max:20',
+            'joining_date' => 'required|date',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        $employee = new Employee();
-        $employee->name = $request->name;
-        $employee->email = $request->email;
-        $employee->phone = $request->phone;
-        $employee->address = $request->address;
-        $employee->salary = $request->salary;
-        $employee->nid = $request->nid;
-        $employee->joining_date = $request->joining_date;
-        $employee->save();
+        try {
+            $employee = new Employee();
+            $employee->name = $validated['name'];
+            $employee->email = $validated['email'];
+            $employee->phone = $validated['phone'];
+            $employee->address = $validated['address'];
+            $employee->salary = $validated['salary'];
+            $employee->nid = $validated['nid'];
+            $employee->joining_date = $validated['joining_date'];
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'New Employee Create Successfully!',
-            'data' => $employee,
-        ], 200);
+            if ($request->hasFile('photo')) {
+                $path = $request->file('photo')->store('public/photos');
+                $employee->photo = Storage::url($path);
+            }
 
+            $employee->save();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Employee created successfully!',
+                'data' => $employee
+            ], 201);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to create employee',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
@@ -111,6 +128,17 @@ class EmployeeController extends Controller
 
         if ($employeeDelete)
         {
+
+            if($employeeDelete->photo)
+            {
+                $photoPath = str_replace('/storage', 'public', $employeeDelete->photo);
+
+                if(Storage::exists($photoPath))
+                {
+                    Storage::delete($photoPath);
+                }
+            }
+
             $employeeDelete->delete();
 
             return response()->json([

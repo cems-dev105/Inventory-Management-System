@@ -10,6 +10,7 @@
                         <table class="table table-hover table-bordered">
                             <thead class="thead-dark">
                                 <tr>
+                                    <th>Photo</th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
@@ -22,6 +23,14 @@
                             </thead>
                             <tbody>
                                 <tr v-for="employee in employees" :key="employee.id">
+                                    <td>
+                                        <div v-if="employee.photo">
+                                            <img :src="employee.photo" alt="Photo" class="img-thumbnail" style="width: 100px; height: 100px;"/>
+                                        </div>
+                                        <div v-else>
+                                            <i class="fas fa-user-circle" style="font-size: 100px; color: #ccc;"></i>
+                                        </div>
+                                    </td>
                                     <td>{{ employee.name }}</td>
                                     <td>{{ employee.email }}</td>
                                     <td>{{ employee.phone }}</td>
@@ -117,6 +126,10 @@ export default {
 .card-header {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+}
+.img-thumbnail {
+    object-fit: cover;
+    border-radius: 5px;
 }
 
 </style>

@@ -38,9 +38,14 @@
                                                 <label for="inputNid">NID</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputJoiningDate" type="text" placeholder="Joining Date" v-model="form.joining_date" />
+                                                <input class="form-control" id="inputJoiningDate" type="date" placeholder="Joining Date" v-model="form.joining_date" />
                                                 <small class="text-danger" v-if="errors.joining_date">{{ errors.joining_date[0] }}</small>
                                                 <label for="inputJoiningDate">Joining Date</label>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" id="inputPhoto" type="file" v-on:change="onPhotoChange" />
+                                                <small class="text-danger" v-if="errors.photo">{{ errors.photo[0] }}</small>
+                                                <label for="inputPhoto">Photo</label>
                                             </div>
                                             <div class="mt-4 mb-0">
                                                 <div class="d-grid">
@@ -75,7 +80,8 @@ export default {
                 address: '',
                 salary: '',
                 nid: '',
-                joining_date: ''
+                joining_date: '',
+                photo: null
             },
             errors: {}
         };
@@ -83,11 +89,21 @@ export default {
 
     methods:{
 
+        onPhotoChange(event) {
+            this.form.photo = event.target.files[0];
+        },
+
         createEmployee()
         {
             const toast = useToast();
+            const formData = new FormData();
 
-            axios.post('/api/employee',this.form)
+            for(const key in this.form)
+            {
+                formData.append(key, this.form[key]);
+            }
+
+            axios.post('/api/employee', formData)
             .then((response) => {
                 this.$router.push('/employee-list');
                 toast.success(response.data.message);
