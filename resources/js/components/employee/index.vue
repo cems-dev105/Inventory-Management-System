@@ -4,14 +4,16 @@
             <div class="card shadow-lg">
                 <div class="card-header bg-primary text-white">
                     <h3 class="text-center my-4">Employee List</h3>
-                    <div class="form-outline" data-mdb-input-init>
+                    <div class="form-outline small-search-box" data-mdb-input-init>
                         <label class="form-label" for="form1">Search</label>
-                        <input type="search" id="form1" class="col-md-2  form-control" />
-                    </div>
-                    <div><br>
-                        <button type="button" class="btn btn-success" data-mdb-ripple-init>
-                            <i class="fas fa-search"></i>
-                        </button>
+                        <div class="input-group">
+                            <input type="search" id="form1" class="form-control small-input" />
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-success" data-mdb-ripple-init>
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -133,4 +135,20 @@ export default {
     object-fit: cover;
     border-radius: 5px;
 }
+
+.small-search-box {
+    max-width: 330px; /* Adjust this value as needed */
+    margin: auto;
+}
+
+.small-input {
+    height: 40px; /* Adjust the height as needed */
+    font-size: 14px; /* Adjust the font size as needed */
+    padding: 5px 10px; /* Adjust the padding as needed */
+}
+
+.input-group-append .btn {
+    margin-left: 5px; /* Adjust the space between the input and the button */
+}
+
 </style>
