@@ -4,47 +4,56 @@
             <div class="card shadow-lg">
                 <div class="card-header bg-primary text-white">
                     <h3 class="text-center my-4">Employee List</h3>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-bordered">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Photo</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Address</th>
-                                    <th>Salary</th>
-                                    <th>NID</th>
-                                    <th>Joining Date</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="employee in employees" :key="employee.id">
-                                    <td>
-                                        <div v-if="employee.photo">
-                                            <img :src="employee.photo" alt="Photo" class="img-thumbnail" style="width: 100px; height: 100px;"/>
-                                        </div>
-                                        <div v-else>
-                                            <i class="fas fa-user-circle" style="font-size: 100px; color: #ccc;"></i>
-                                        </div>
-                                    </td>
-                                    <td>{{ employee.name }}</td>
-                                    <td>{{ employee.email }}</td>
-                                    <td>{{ employee.phone }}</td>
-                                    <td>{{ employee.address }}</td>
-                                    <td>{{ employee.salary }}</td>
-                                    <td>{{ employee.nid }}</td>
-                                    <td>{{ employee.joining_date }}</td>
-                                    <td>
-                                        <router-link class="btn btn-sm btn-primary btn-space" v-bind:to="`/employee-edit/${employee.id}`">Edit</router-link>
-                                        <button class="btn btn-sm btn-danger" v-on:click="employeeDelete(employee.id)">Delete</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="form-outline" data-mdb-input-init>
+                        <label class="form-label" for="form1">Search</label>
+                        <input type="search" id="form1" class="col-md-2  form-control" />
+                    </div>
+                    <div><br>
+                        <button type="button" class="btn btn-success" data-mdb-ripple-init>
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Photo</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Address</th>
+                                        <th>Salary</th>
+                                        <th>NID</th>
+                                        <th>Joining Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="employee in employees" :key="employee.id">
+                                        <td>
+                                            <div v-if="employee.photo">
+                                                <img :src="employee.photo" alt="Photo" class="img-thumbnail" style=" width: 100px; height: 100px;"/>
+                                            </div>
+                                            <div v-else>
+                                                <i class="fas fa-user-circle" style=" font-size: 100px; color: #ccc;"></i>
+                                            </div>
+                                        </td>
+                                        <td>{{ employee.name }}</td>
+                                        <td>{{ employee.email }}</td>
+                                        <td>{{ employee.phone }}</td>
+                                        <td>{{ employee.address }}</td>
+                                        <td>{{ employee.salary }}</td>
+                                        <td>{{ employee.nid }}</td>
+                                        <td>{{ employee.joining_date }}</td>
+                                        <td>
+                                            <router-link class="btn btn-sm btn-primary btn-space" v-bind:to="`/employee-edit/${employee.id}`">Edit</router-link>
+                                            <button class="btn btn-sm btn-danger" v-on:click="employeeDelete(employee.id)">Delete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -53,26 +62,22 @@
 </template>
 
 <script>
-import axios from 'axios';
-import { useToast } from 'vue-toastification';
+import axios from "axios";
+import { useToast } from "vue-toastification";
 
 export default {
+    name: "Index",
 
-    name: 'Index',
-
-    data()
-    {
+    data() {
         return {
-
-            employees: []
+            employees: [],
         };
     },
 
     methods: {
-
         employeeList()
         {
-            axios.get('/api/employee')
+            axios.get("/api/employee")
             .then((response) => {
                 this.employees = response.data.data;
             })
@@ -90,24 +95,21 @@ export default {
                 this.employeeList();
                 toast.success(response.data.message);
                 console.log(response.data.data);
-
-            })
+                })
             .catch((error) => {
                 console.error(error);
                 toast.error(response.data.message);
             });
-        }
+        },
     },
 
-    mounted()
-    {
+    mounted() {
         this.employeeList();
-    }
-}
+    },
+};
 </script>
 
 <style scoped>
-
 .table-responsive {
     overflow-x: auto;
 }
@@ -131,5 +133,4 @@ export default {
     object-fit: cover;
     border-radius: 5px;
 }
-
 </style>
