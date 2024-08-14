@@ -3,23 +3,23 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Employee;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class EmployeeController extends Controller
+class SupplierController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $employeeList = Employee::all();
+        $supplierList = Supplier::all();
 
         return response()->json([
             'status' => 'success',
-            'message' => 'All employee list..',
-            'data' => $employeeList,
+            'message' => 'All supplier list..',
+            'data' => $supplierList,
         ], 200);
     }
 
@@ -33,39 +33,35 @@ class EmployeeController extends Controller
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
             'address' => 'required|string|max:255',
-            'salary' => 'required',
-            'nid' => 'required|string|max:20',
-            'joining_date' => 'required|date',
+            'shopname' => 'required|string|max:255',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         try {
-            $employeeStore = new Employee();
-            $employeeStore->name = $validated['name'];
-            $employeeStore->email = $validated['email'];
-            $employeeStore->phone = $validated['phone'];
-            $employeeStore->address = $validated['address'];
-            $employeeStore->salary = $validated['salary'];
-            $employeeStore->nid = $validated['nid'];
-            $employeeStore->joining_date = $validated['joining_date'];
+            $supplier = new Supplier();
+            $supplier->name = $validated['name'];
+            $supplier->email = $validated['email'];
+            $supplier->phone = $validated['phone'];
+            $supplier->address = $validated['address'];
+            $supplier->shopname = $validated['shopname'];
 
             if ($request->hasFile('photo')) {
                 $path = $request->file('photo')->store('public/photos');
-                $employeeStore->photo = Storage::url($path);
+                $supplier->photo = Storage::url($path);
             }
 
-            $employeeStore->save();
+            $supplier->save();
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Employee created successfully!',
-                'data' => $employeeStore
+                'message' => 'Supplier created successfully!',
+                'data' => $supplier
             ], 201);
 
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to create employee',
+                'message' => 'Failed to create supplier',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -76,20 +72,20 @@ class EmployeeController extends Controller
      */
     public function show(string $id)
     {
-        $employee = Employee::find($id);
+        $supplier = Supplier::find($id);
 
-        if ($employee)
+        if ($supplier)
         {
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Employee found!',
-                'data' => $employee
+                'message' => 'Supplier found!',
+                'data' => $supplier
             ], 200);
         } else {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Employee not found!',
+                'message' => 'Supplier not found!',
             ], 404);
         }
     }
@@ -99,22 +95,22 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $employeeUpdate = Employee::find($id);
+        $supplierUpdate = Supplier::find($id);
 
-        if($employeeUpdate)
+        if($supplierUpdate)
         {
 
-            $employeeUpdate->update($request->all());
+            $supplierUpdate->update($request->all());
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Employee Updated!',
-                'data' => $employeeUpdate
+                'message' => 'Supplier Updated!',
+                'data' => $supplierUpdate
             ], 200);
         } else {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Employee not found!',
+                'message' => 'Supplier not found!',
             ], 404);
         }
     }
@@ -122,16 +118,16 @@ class EmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(string $id)
     {
-        $employeeDelete = Employee::find($id);
+        $supplierDelete = Supplier::find($id);
 
-        if ($employeeDelete)
+        if ($supplierDelete)
         {
 
-            if($employeeDelete->photo)
+            if($supplierDelete->photo)
             {
-                $photoPath = str_replace('/storage', 'public', $employeeDelete->photo);
+                $photoPath = str_replace('/storage', 'public', $supplierDelete->photo);
 
                 if(Storage::exists($photoPath))
                 {
@@ -139,17 +135,17 @@ class EmployeeController extends Controller
                 }
             }
 
-            $employeeDelete->delete();
+            $supplierDelete->delete();
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Employee deleted successfully!',
-                'data' => $employeeDelete
+                'message' => 'Supplier deleted successfully!',
+                'data' => $supplierDelete
             ], 200);
         } else {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Employee not found!',
+                'message' => 'Supplier not found!',
             ], 404);
         }
     }
