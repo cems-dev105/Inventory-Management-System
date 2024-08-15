@@ -51,6 +51,18 @@
                   <!-- <router-link class="nav-link" to="/employee-edit">Edit Employee</router-link> -->
                 </nav>
               </div>
+              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#suppliercollapseLayouts" aria-expanded="false" aria-controls="suppliercollapseLayouts">
+                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                Suppliers
+                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+              </a>
+              <div class="collapse" id="suppliercollapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                <nav class="sb-sidenav-menu-nested nav">
+                  <router-link class="nav-link" to="/supplier-list">All Supplier</router-link>
+                  <router-link class="nav-link" to="/supplier-create">Create Supplier</router-link>
+                  <!-- <router-link class="nav-link" to="/employee-edit">Edit Employee</router-link> -->
+                </nav>
+              </div>
               <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                 Pages
