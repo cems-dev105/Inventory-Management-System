@@ -13,6 +13,10 @@ import SupplierList from "../components/supplier/index.vue";
 import SupplierCreate from "../components/supplier/create.vue";
 import SupplierEdit from "../components/supplier/edit.vue";
 
+import CategoryList from "../components/category/index.vue";
+import CategoryCreate from "../components/category/create.vue";
+import CategoryEdit from "../components/category/edit.vue";
+
 
 const routes = [
     {
@@ -74,6 +78,24 @@ const routes = [
         component: SupplierEdit,
         meta: { requiresAuth: true },
     },
+    {
+        path: "/category-list",
+        name: "CategoryList",
+        component: CategoryList,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: "/category-create",
+        name: "CategoryCreate",
+        component: CategoryCreate,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: "/category-edit/:id",
+        name: "CategoryEdit",
+        component: CategoryEdit,
+        meta: { requiresAuth: true },
+    }
 ];
 
 const router = createRouter({
