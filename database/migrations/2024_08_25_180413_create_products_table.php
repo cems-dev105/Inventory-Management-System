@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id();
             $table->integer('category_id');
             $table->integer('supplier_id')->nullable();
-            $table->integer('product_name');
-            $table->integer('product_code')->nullable();
-            $table->integer('image')->nullable();
-            $table->integer('root')->nullable();
-            $table->integer('buyibg_price')->nullable();
-            $table->integer('selling_price');
-            $table->integer('buying_date')->nullable();
-            $table->integer('product_quantity');
+            $table->string('product_name');
+            $table->string('product_code')->nullable();
+            $table->string('image')->nullable();
+            $table->string('root')->nullable();
+            $table->string('buying_price')->nullable();
+            $table->string('selling_price');
+            $table->string('buying_date')->nullable();
+            $table->string('product_quantity');
             $table->timestamps();
         });
     }

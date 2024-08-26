@@ -17,6 +17,10 @@ import CategoryList from "../components/category/index.vue";
 import CategoryCreate from "../components/category/create.vue";
 import CategoryEdit from "../components/category/edit.vue";
 
+import ProductList from "../components/product/index.vue";
+import ProductCreate from "../components/product/create.vue";
+import ProductEdit from "../components/product/edit.vue";
+
 
 const routes = [
     {
@@ -94,6 +98,24 @@ const routes = [
         path: "/category-edit/:id",
         name: "CategoryEdit",
         component: CategoryEdit,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: "/product-list",
+        name: "ProductList",
+        component: ProductList,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: "/product-create",
+        name: "ProducCreate",
+        component: ProductCreate,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: "/product-edit/:id",
+        name: "ProductEdit",
+        component: ProductEdit,
         meta: { requiresAuth: true },
     }
 ];
