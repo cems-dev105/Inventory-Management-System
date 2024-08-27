@@ -7,12 +7,12 @@
                     <div class="form-outline small-search-box" data-mdb-input-init>
                         <label class="form-label" for="form1">Search</label>
                         <div class="input-group">
-                            <!-- <input type="search" id="form1" class="form-control small-input" v-model="searchTerm" placeholder="search phone"/> -->
-                            <!-- <div class="input-group-append">
+                            <input type="search" id="form1" class="form-control small-input" v-model="searchTerm" placeholder="search product name"/>
+                            <div class="input-group-append">
                                 <button type="button" class="btn btn-success" data-mdb-ripple-init>
                                     <i class="fas fa-search"></i>
                                 </button>
-                            </div> -->
+                            </div>
                         </div><br>
                         <div>
                             <router-link to="/product-create"><button class="btn btn-success ">Add New</button></router-link>
@@ -34,7 +34,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="product in products" :key="product.id">
+                                    <tr v-for="product in searchProduct" :key="product.id">
                                         <td>
                                             <div v-if="product.image">
                                                 <img :src="product.image" alt="Photo" class="img-thumbnail" style=" width: 100px; height: 100px;"/>
@@ -76,7 +76,18 @@ export default {
     data()
     {
         return {
-            products: []
+            products: [],
+            searchTerm: ''
+        }
+    },
+
+    computed: {
+
+        searchProduct()
+        {
+            return this.products.filter(product => {
+                return product.product_name.toLowerCase().includes(this.searchTerm.toLowerCase());
+            });
         }
     },
 
