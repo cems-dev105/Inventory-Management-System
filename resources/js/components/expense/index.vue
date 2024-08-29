@@ -3,11 +3,11 @@
         <div class="container mt-5">
             <div class="card shadow-lg">
                 <div class="card-header bg-primary text-white">
-                    <h3 class="text-center my-4">Category List</h3>
+                    <h3 class="text-center my-4">Expense List</h3>
                     <div class="form-outline small-search-box" data-mdb-input-init>
-                        <label class="form-label" for="form1">Search</label>
+                        <!-- <label class="form-label" for="form1">Search</label> -->
                         <div class="input-group">
-                            <input type="search" id="form1" class="form-control small-input" v-model="searchTerm" placeholder="search category"/>
+                            <!-- <input type="search" id="form1" class="form-control small-input" v-model="searchTerm" placeholder="search category"/> -->
                             <!-- <div class="input-group-append">
                                 <button type="button" class="btn btn-success" data-mdb-ripple-init>
                                     <i class="fas fa-search"></i>
@@ -15,7 +15,7 @@
                             </div> -->
                         </div><br>
                         <div>
-                            <router-link to="/category-create"><button class="btn btn-success ">Add New</button></router-link>
+                            <router-link to="/expense-create"><button class="btn btn-success">Add New</button></router-link>
                         </div>
                     </div>
                     <div class="card-body">
@@ -23,16 +23,20 @@
                             <table class="table table-hover table-bordered">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th>Category Name</th>
+                                        <th>Details</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="category in searchCategory" :key="category.id">
-                                        <td>{{ category.category_name }}</td>
+                                    <tr v-for="expense in expenses" :key="expense.id">
+                                        <td>{{ expense.details }}</td>
+                                        <td>{{ expense.amount }}</td>
+                                        <td>{{ expense.date }}</td>
                                         <td>
-                                            <router-link class="btn btn-sm btn-primary btn-space" v-bind:to="`/category-edit/${category.id}`">Edit</router-link>
-                                            <button class="btn btn-sm btn-danger" v-on:click="categoryDelete(category.id)">Delete</button>
+                                            <router-link class="btn btn-sm btn-primary btn-space" v-bind:to="`/expense-edit/${expense.id}`">Edit</router-link>
+                                            <button class="btn btn-sm btn-danger" v-on:click="expenseDelete(expense.id)">Delete</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -49,6 +53,7 @@
 import axios from 'axios';
 import { useToast } from 'vue-toastification';
 
+
 export default {
 
     name: "Index",
@@ -56,42 +61,33 @@ export default {
     data()
     {
         return {
-            categoryData: [],
-            searchTerm: ''
+
+            expenses: [],
+
         }
     },
 
-    computed: {
+    methods:{
 
-        searchCategory()
+        expenseList()
         {
-            return this.categoryData.filter(category => {
-                return category.category_name.toLowerCase().includes(this.searchTerm.toLowerCase());
-            });
-        }
-    },
-
-    methods: {
-
-        categoryList()
-        {
-            axios.get('/api/category')
+            axios.get('/api/expense')
             .then((response) => {
-                this.categoryData = response.data.data;
-                console.log(response.data);
+                this.expenses = response.data.data;
+                console.log(response.data.data);
             })
             .catch((error) => {
-                console.error(error);
+                console.log(error);
             });
         },
 
-        categoryDelete(id)
+        expenseDelete(id)
         {
             const toast = useToast();
-            
-            axios.delete(`/api/category/${id}`)
+
+            axios.delete(`api/expense/${id}`)
             .then((response) => {
-                this.categoryList();
+                this.expenseList();
                 toast.success(response.data.message);
                 console.log(response.data.data);
             })
@@ -100,12 +96,14 @@ export default {
                 toast.error(response.data.message);
             });
         }
+
     },
 
     mounted()
     {
-        this.categoryList();
+        this.expenseList();
     }
+
 }
 
 </script>

@@ -87,6 +87,18 @@
                   <!-- <router-link class="nav-link" to="/employee-edit">Edit Employee</router-link> -->
                 </nav>
               </div>
+              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#expensecollapseLayouts" aria-expanded="false" aria-controls="expensecollapseLayouts">
+                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                Expense
+                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+              </a>
+              <div class="collapse" id="expensecollapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                <nav class="sb-sidenav-menu-nested nav">
+                  <router-link class="nav-link" to="/expense-list">All Expense</router-link>
+                  <router-link class="nav-link" to="/expense-create">Create Expense</router-link>
+                  <!-- <router-link class="nav-link" to="/employee-edit">Edit Employee</router-link> -->
+                </nav>
+              </div>
               <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                 Pages

@@ -21,6 +21,10 @@ import ProductList from "../components/product/index.vue";
 import ProductCreate from "../components/product/create.vue";
 import ProductEdit from "../components/product/edit.vue";
 
+import ExpenseList from "../components/expense/index.vue";
+import ExpenseCreate from "../components/expense/create.vue";
+import ExpenseEdit from "../components/expense/edit.vue";
+
 
 const routes = [
     {
@@ -116,6 +120,24 @@ const routes = [
         path: "/product-edit/:id",
         name: "ProductEdit",
         component: ProductEdit,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: "/expense-list",
+        name: "ExpenseList",
+        component: ExpenseList,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: "/expense-create",
+        name: "ExpenseCreate",
+        component: ExpenseCreate,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: "/expense-edit/:id",
+        name: "ExpenseEdit",
+        component: ExpenseEdit,
         meta: { requiresAuth: true },
     }
 ];
