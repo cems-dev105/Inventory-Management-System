@@ -7,6 +7,7 @@ use App\Http\Controllers\API\SupplierController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ExpenseController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\SalaryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,4 +53,12 @@ Route::group([
     Route::apiResource('/category', CategoryController::class);
     Route::apiResource('/product', ProductController::class);
     Route::apiResource('/expense', ExpenseController::class);
+
+    //Salary.......
+    Route::post('/salary/paid', [SalaryController::class, 'paid']);
+    Route::get('/salary', [SalaryController::class, 'allSalary']);
+    Route::get('/salary/view/{month}', [SalaryController::class, 'viewSalary']);
+    Route::get('/salary/edit/{id}', [SalaryController::class, 'editSalary']);
+    Route::post('/salary/update/{id}', [SalaryController::class, 'updateSalary']);
+
 });

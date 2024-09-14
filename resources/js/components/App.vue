@@ -99,6 +99,18 @@
                   <!-- <router-link class="nav-link" to="/employee-edit">Edit Employee</router-link> -->
                 </nav>
               </div>
+              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#salarycollapseLayouts" aria-expanded="false" aria-controls="salarycollapseLayouts">
+                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                Salary
+                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+              </a>
+              <div class="collapse" id="salarycollapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                <nav class="sb-sidenav-menu-nested nav">
+                  <router-link class="nav-link" to="">All Salary</router-link>
+                  <router-link class="nav-link" to="">Pay Salary</router-link>
+                  <!-- <router-link class="nav-link" to="/employee-edit">Edit Employee</router-link> -->
+                </nav>
+              </div>
               <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                 Pages
